@@ -27,49 +27,13 @@
 
 ### 3.1 ลำดับขั้นการแลกเปลี่ยนแพ็กเกจ 4-Way Handshake และ DHCP (Sequence Diagram)
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant STA as ESP32 (Station)
-    participant AP as Access Point (Router)
-
-    note over STA, AP: Phase 3 สิ้นสุด (เกิด WIFI_EVENT_STA_CONNECTED)
-
-    rect rgb(255, 248, 220)
-        note over STA, AP: Phase 4: WPA2 4-Way Handshake (EAPOL Keys)
-        AP->>STA: 1/4 EAPOL-Key Frame (ส่ง ANonce)
-        note over STA: คำนวณ PTK จาก PMK + ANonce + SNonce
-        STA->>AP: 2/4 EAPOL-Key Frame (ส่ง SNonce + MIC)
-        note over AP: ตรวจสอบ MIC (ถ้ารหัสผ่านผิด จะล้มเหลวที่จุดนี้)
-        AP->>STA: 3/4 EAPOL-Key Frame (ส่ง GTK + Confirm MIC)
-        STA->>AP: 4/4 EAPOL-Key Frame (ACK ยืนยันติดตั้ง Key ใน Hardware)
-    end
-
-    rect rgb(230, 230, 250)
-        note over STA, AP: Phase 5: IP Assignment (DHCP Client)
-        STA->>AP: DHCP Discover / Request
-        AP-->>STA: DHCP Offer / ACK (มอบหมาย IP Address, Netmask, GW)
-    end
-
-    note over STA: Wi-Fi Stack ปล่อย Event: IP_EVENT_STA_GOT_IP<br/>(พร้อมสื่อสารระดับ IP Network!)
-```
+<p align="center"><img src="Images/Fig_10-Labsheet-05-4-Wi-Fi-Handshake-IP-Phase_2026-10-25T10-24-50_academic.svg" alt="10-Labsheet-05-4-Wi-Fi-Handshake-IP-Phase" width="800" style="max-width: 800px; width: 100%; height: auto;" ></p>
+<p align="center"><b>รูปที่</b> 3.1 ลำดับขั้นการแลกเปลี่ยนแพ็กเกจ 4-Way Handshake และ DHCP (Sequence Diagram)</p>
 
 ### 3.2 โครงสร้างข้อมูล `ip_event_got_ip_t` (Class Diagram)
 
-```mermaid
-classDiagram
-    class ip_event_got_ip_t {
-        +esp_ip4_addr_t ip
-        +esp_ip4_addr_t netmask
-        +esp_ip4_addr_t gw
-        +bool ip_changed
-    }
-    class esp_ip4_addr_t {
-        +uint32_t addr
-    }
-
-    ip_event_got_ip_t "1" *-- "3" esp_ip4_addr_t : contains
-```
+<p align="center"><img src="Images/Fig_10-Labsheet-05-4-Wi-Fi-Handshake-IP-Phase_2026-10-25T10-24-55_academic.svg" alt="10-Labsheet-05-4-Wi-Fi-Handshake-IP-Phase" width="400" style="max-width: 800px;  height: auto;" ></p>
+<p align="center"><b>รูปที่</b> 3.2 โครงสร้างข้อมูล `ip_event_got_ip_t` (Class Diagram)</p>
 
 ---
 

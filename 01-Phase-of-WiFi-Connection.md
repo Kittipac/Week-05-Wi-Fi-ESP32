@@ -26,7 +26,7 @@
 
 กระบวนการเชื่อมต่อทั้งหมดสามารถสรุปเป็น State Diagram ได้ดังนี้:
 
-<p align="center"><img src="Images/Fig_01-Phase-of-WiFi-Connection_2026-10-25T09-39-00_academic.svg" alt="01-Phase-of-WiFi-Connection" ></p>
+<p align="center"><img src="Images/Fig_01-Phase-of-WiFi-Connection_2026-10-25T09-39-00_academic.svg" alt="01-Phase-of-WiFi-Connection"  width = 800px></p>
 <p align="center"><b>รูปที่ 1 </b> แผนผังลำดับขั้นตอนการทำงาน (Wi-Fi Connection State Machine)</p>
 
 ---

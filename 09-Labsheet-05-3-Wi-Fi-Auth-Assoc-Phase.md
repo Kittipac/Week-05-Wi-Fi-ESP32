@@ -26,50 +26,13 @@
 
 ### 3.1 ลำดับขั้นการทำงานในระดับ Link Layer (Sequence Diagram)
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant STA as ESP32 (Station)
-    participant AP as Access Point (Router)
-
-    rect rgb(240, 248, 255)
-        note over STA, AP: Phase 2: 802.11 Open System Authentication
-        STA->>AP: 802.11 Auth Request (Algorithm: Open System)
-        AP-->>STA: 802.11 Auth Response (Status: Success)
-    end
-
-    rect rgb(255, 245, 238)
-        note over STA, AP: Phase 3: 802.11 Association
-        STA->>AP: 802.11 Assoc Request (Capabilities, Supported Rates)
-        AP-->>STA: 802.11 Assoc Response (Status: Success, Assigned AID)
-    end
-
-    note over STA: Wi-Fi Driver ปล่อย Event: WIFI_EVENT_STA_CONNECTED<br/>(Link Layer Association Complete!)
-```
+<p align="center"><img src="Images/Fig_09-Labsheet-05-3-Wi-Fi-Auth-Assoc-Phase_2026-10-25T09-52-10_academic.svg" alt="09-Labsheet-05-3-Wi-Fi-Auth-Assoc-Phase" ></p>
+<p align="center"><b>รูปที่</b> 3.1 ลำดับขั้นการทำงานในระดับ Link Layer (Sequence Diagram)</p>
 
 ### 3.2 โครงสร้างข้อมูล `wifi_event_sta_connected_t` (Class Diagram)
 
-```mermaid
-classDiagram
-    class wifi_event_sta_connected_t {
-        +uint8_t[33] ssid
-        +uint8_t ssid_len
-        +uint8_t[6] bssid
-        +uint8_t channel
-        +wifi_auth_mode_t authmode
-        +uint16_t aid
-    }
-    class wifi_auth_mode_t {
-        <<enumeration>>
-        WIFI_AUTH_OPEN
-        WIFI_AUTH_WEP
-        WIFI_AUTH_WPA_PSK
-        WIFI_AUTH_WPA2_PSK
-        WIFI_AUTH_WPA3_PSK
-    }
-
-    wifi_event_sta_connected_t "1" *-- "1" wifi_auth_mode_t : specifies
-```
+<p align="center"><img src="Images/Fig_09-Labsheet-05-3-Wi-Fi-Auth-Assoc-Phase_2026-10-25T09-52-22_academic.svg" alt="09-Labsheet-05-3-Wi-Fi-Auth-Assoc-Phase"  width = "400 px"></p>
+<p align="center"><b>รูปที่</b> 3.2 โครงสร้างข้อมูล `wifi_event_sta_connected_t` (Class Diagram)</p>
 
 ---
 
