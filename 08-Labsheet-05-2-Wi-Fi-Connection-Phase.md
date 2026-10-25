@@ -27,64 +27,27 @@
 ### 3.1 สถาปัตยกรรม Event Loop และ Event Handling ใน ESP-IDF
 ใน ESP-IDF การทำงานของ Wi-Fi เป็นแบบ Asynchronous (ทำงานเบื้องหลัง) โดย Driver จะส่ง Event ผ่านระบบ **Default Event Loop** เพื่อแจ้งเตือนให้โปรแกรมทราบความคืบหน้า
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant App as Application Code
-    participant Evt as ESP Event Loop
-    participant Drv as Wi-Fi Driver / IP Stack
+<p align="center"><img src="Images/Fig_08-Labsheet-05-2-Wi-Fi-Connection-Phase_2026-10-25T09-44-12_academic.svg" alt="08-Labsheet-05-2-Wi-Fi-Connection-Phase" ></p>
 
-    App->>Evt: esp_event_handler_instance_register()
-    App->>Drv: esp_wifi_connect()
-    Drv->>Evt: Post WIFI_EVENT_STA_CONNECTED
-    Evt->>App: Callback: wifi_event_handler()
-    Drv->>Evt: Post IP_EVENT_STA_GOT_IP
-    Evt->>App: Callback: wifi_event_handler()
-```
 
 ### 3.2 โครงสร้างข้อมูล Event สำคัญ (Class Diagrams)
 
 #### 1) โครงสร้างข้อมูล `wifi_event_sta_connected_t`
 ส่งมาพร้อมกับ Event `WIFI_EVENT_STA_CONNECTED` เพื่อระบุรายละเอียดของ AP ที่เชื่อมต่อสำเร็จ:
 
-```mermaid
-classDiagram
-    class wifi_event_sta_connected_t {
-        +uint8_t[33] ssid
-        +uint8_t ssid_len
-        +uint8_t[6] bssid
-        +uint8_t channel
-        +wifi_auth_mode_t authmode
-        +uint16_t aid
-    }
-```
+<p align="center"><img src="Images/Fig_08-Labsheet-05-2-Wi-Fi-Connection-Phase_2026-10-25T09-44-41_academic.svg" alt="08-Labsheet-05-2-Wi-Fi-Connection-Phase"  width = "400px"></p>
+
 
 #### 2) โครงสร้างข้อมูล `wifi_event_sta_disconnected_t`
 ส่งมาพร้อมกับ Event `WIFI_EVENT_STA_DISCONNECTED` เพื่อระบุสาเหตุของการหลุดการเชื่อมต่อ:
 
-```mermaid
-classDiagram
-    class wifi_event_sta_disconnected_t {
-        +uint8_t[33] ssid
-        +uint8_t ssid_len
-        +uint8_t[6] bssid
-        +uint8_t reason
-        +int8_t rssi
-    }
-```
+<p align="center"><img src="Images/Fig_08-Labsheet-05-2-Wi-Fi-Connection-Phase_2026-10-25T09-45-00_academic.svg" alt="08-Labsheet-05-2-Wi-Fi-Connection-Phase" width = "400px"></p>
+
 
 #### 3) โครงสร้างข้อมูล `ip_event_got_ip_t`
 ส่งมาพร้อมกับ Event `IP_EVENT_STA_GOT_IP` เมื่อ ESP32 ได้รับหมายเลข IP จาก DHCP Server:
 
-```mermaid
-classDiagram
-    class ip_event_got_ip_t {
-        +esp_ip4_addr_t ip
-        +esp_ip4_addr_t netmask
-        +esp_ip4_addr_t gw
-        +bool ip_changed
-    }
-```
+<p align="center"><img src="Images/Fig_08-Labsheet-05-2-Wi-Fi-Connection-Phase_2026-10-25T09-45-10_academic.svg" alt="08-Labsheet-05-2-Wi-Fi-Connection-Phase" width = "400px" ></p>
 
 ---
 

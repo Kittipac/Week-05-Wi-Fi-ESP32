@@ -8,24 +8,8 @@
 
 กระบวนการสแกนสัญญาณตามมาตรฐาน IEEE 802.11 แบ่งออกเป็น 2 รูปแบบหลักดังรูป
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant STA as ESP32 (Station)
-    participant AP as Access Point (Router)
-    
-    rect rgb(240, 248, 255)
-        note over STA, AP: รูปแบบที่ 1: Passive Scanning (รอฟังสัญญาณ)
-        AP->>STA: Beacon Frame (กระจายสัญญาณตามรอบ เช่น ทุก 100ms)
-        note over STA: ESP32 ตรวจจับ Beacon และบันทึก SSID/RSSI
-    end
-
-    rect rgb(255, 245, 238)
-        note over STA, AP: รูปแบบที่ 2: Active Scanning (ส่งคำร้องขอค้นหา)
-        STA->>AP: Probe Request Frame (broadcast หรือ specific SSID)
-        AP-->>STA: Probe Response Frame (ตอบกลับข้อมูล Capability/Security)
-    end
-```
+<p align="center"><img src="Images/Fig_02-1-Scan-phase_2026-10-25T09-39-18_academic.svg" alt="02-1-Scan-phase" ></p>
+<p align="center"><b>รูปที่ 2 </b>  กลไกการสแกนสัญญาณ</p>
 
 1. **Passive Scanning (การสแกนแบบตั้งรับ)**: ESP32 จะคอยรับฟังแพ็กเกจ **Beacon Frame** ที่ AP ส่งกระจายออกมาตามรอบเวลา (ปกติประมาณ 100ms) ในแต่ละ Channel การสแกนแบบนี้ช่วยประหยัดพลังงานแต่ใช้เวลานานกว่า
 2. **Active Scanning (การสแกนแบบรุก - เป็น Default ของ ESP32)**: ESP32 จะส่ง **Probe Request Frame** ออกไปในทุกช่องสัญญาณ (Channel 1-13) แล้วรอรับ **Probe Response Frame** จาก AP เพื่อให้ทราบข้อมูลของเครือข่ายอย่างรวดเร็ว

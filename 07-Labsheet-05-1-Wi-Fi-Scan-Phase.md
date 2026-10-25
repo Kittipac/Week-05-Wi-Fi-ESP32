@@ -68,30 +68,8 @@ typedef struct {
 
 #### แผนผังโครงสร้างข้อมูล (Class Diagram of `wifi_scan_config_t`)
 
-```mermaid
-classDiagram
-    class wifi_scan_config_t {
-        +uint8_t* ssid
-        +uint8_t* bssid
-        +uint8_t channel
-        +bool show_hidden
-        +wifi_scan_type_t scan_type
-        +wifi_scan_time_t scan_time
-    }
-    class wifi_scan_type_t {
-        <<enumeration>>
-        WIFI_SCAN_TYPE_ACTIVE
-        WIFI_SCAN_TYPE_PASSIVE
-    }
-    class wifi_scan_time_t {
-        +uint32_t active_min_ms
-        +uint32_t active_max_ms
-        +uint32_t passive_ms
-    }
+<p align="center"><img src="Images/Fig_07-Labsheet-05-1-Wi-Fi-Scan-Phase_2026-10-25T09-42-28_academic.svg" alt="07-Labsheet-05-1-Wi-Fi-Scan-Phase" width = "600px" ></p>
 
-    wifi_scan_config_t "1" *-- "1" wifi_scan_type_t : uses
-    wifi_scan_config_t "1" *-- "1" wifi_scan_time_t : configures
-```
 
 **คำสั่งสั่งสแกน**  `esp_wifi_scan_start(&scan_config, true)` โดยหากใส่พารามิเตอร์ตัวหลังเป็น `true` จะเป็นการสแกนแบบ Synchronous (รอจนกว่าการสแกนจะเสร็จสมบูรณ์)
 
@@ -100,26 +78,8 @@ classDiagram
 
 #### แผนผังโครงสร้างข้อมูล (Class Diagram of `wifi_ap_record_t`)
 
-```mermaid
-classDiagram
-    class wifi_ap_record_t {
-        +uint8_t[33] ssid
-        +uint8_t[6] bssid
-        +int8_t rssi
-        +uint8_t primary
-        +wifi_auth_mode_t authmode
-    }
-    class wifi_auth_mode_t {
-        <<enumeration>>
-        WIFI_AUTH_OPEN
-        WIFI_AUTH_WEP
-        WIFI_AUTH_WPA_PSK
-        WIFI_AUTH_WPA2_PSK
-        WIFI_AUTH_WPA3_PSK
-    }
+<p align="center"><img src="Images/Fig_07-Labsheet-05-1-Wi-Fi-Scan-Phase_2026-10-25T09-42-34_academic.svg" alt="07-Labsheet-05-1-Wi-Fi-Scan-Phase"  width = "400px"></p>
 
-    wifi_ap_record_t "1" *-- "1" wifi_auth_mode_t : specifies
-```
 
 | ตัวแปรสมาชิก | รายละเอียด                 | ข้อมูล                          |
 | ------------ | -------------------------- | ------------------------------- |
