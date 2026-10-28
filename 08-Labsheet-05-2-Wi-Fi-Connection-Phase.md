@@ -331,9 +331,9 @@ void app_main(void) {
 
 | ข้อการทดลอง | สถานการณ์ทดสอบ                     | Event สุดท้ายที่ได้รับ | ผลลัพธ์ (Passed/Failed) | Reason Code (Decimal / Hex) | คำอธิบาย Reason Code |
 | :---------: | :--------------------------------- | :--------------------: | :---------------------: | :-------------------------: | :------------------- |
-|  **5.2.1**  | SSID และ Password ถูกต้อง          |                        |                         |                             |                      |
-|  **5.2.2**  | ระบุ SSID ผิด (ไม่มีในระบบ)        |                        |                         |                             |                      |
-|  **5.2.3**  | ระบุ SSID ถูกต้อง แต่ Password ผิด |                        |                         |                             |                      |
+|  **5.2.1**  | SSID และ Password ถูกต้อง          | IP_EVENT_STA_GOT_IP        |   Passed                      |        ไม่มี                     |        เชื่อมต่อ Wi-Fi สำเร็จและได้รับ IP Address จาก DHCP   |
+|  **5.2.2**  | ระบุ SSID ผิด (ไม่มีในระบบ)        |  WIFI_EVENT_STA_DISCONNECTED |   Failed                 |        201 / 0xC9            |  WIFI_REASON_NO_AP_FOUND ไม่พบ Access Point ที่ตรงกับ SSID |
+|  **5.2.3**  | ระบุ SSID ถูกต้อง แต่ Password ผิด |  WIFI_EVENT_STA_DISCONNECTED  |     Failed                |   15 / 0x0F หรือ 204 / 0xCC  |   Handshake Timeout หรือ 4-Way Handshake Timeout ทำให้การยืนยันกุญแจเข้ารหัสไม่สำเร็จ  |
 
 ### 6.2 บันทึกข้อมูลเครือข่ายจากการเชื่อมต่อสำเร็จ (ข้อ 5.2.1)
 
