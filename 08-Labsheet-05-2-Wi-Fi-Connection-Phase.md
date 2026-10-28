@@ -339,7 +339,7 @@ void app_main(void) {
 
 | พารามิเตอร์เครือข่าย    | ค่าที่ได้รับจริงจาก DHCP |
 | :---------------------- | :----------------------- |
-| **SSID**                |    	Gambit (My_Hotspot)                      |
+| **SSID**                |    	Gambit (My Hotspot)                      |
 | **BSSID (MAC Address)** |     24:6F:28:A1:B2:C3                     |
 | **Channel**             |     6                    |
 | **IP Address**          |     192.168.43.120                     |
