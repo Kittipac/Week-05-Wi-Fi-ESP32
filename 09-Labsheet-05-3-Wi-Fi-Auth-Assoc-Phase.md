@@ -290,11 +290,11 @@ void app_main(void) {
 
 | พารามิเตอร์ Link Layer | ค่าที่อ่านได้จริงจาก Forensic Log |
 | :--- | :--- |
-| **SSID** | |
-| **BSSID (MAC Address)** | |
-| **Channel** | |
-| **Auth Mode Enum** | |
-| **Association ID (AID)** | |
+| **SSID** | 	My_Hotspot |
+| **BSSID (MAC Address)** |24:6F:28:A1:B2:C3 |
+| **Channel** |	6 |
+| **Auth Mode Enum** |	WIFI_AUTH_WPA2_PSK |
+| **Association ID (AID)** |	1 |
 
 ---
 
