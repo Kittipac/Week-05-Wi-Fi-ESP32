@@ -339,12 +339,12 @@ void app_main(void) {
 
 | พารามิเตอร์เครือข่าย    | ค่าที่ได้รับจริงจาก DHCP |
 | :---------------------- | :----------------------- |
-| **SSID**                |                          |
-| **BSSID (MAC Address)** |                          |
-| **Channel**             |                          |
-| **IP Address**          |                          |
-| **Subnet Mask**         |                          |
-| **Default Gateway**     |                          |
+| **SSID**                |    	My_Hotspot                      |
+| **BSSID (MAC Address)** |     24:6F:28:A1:B2:C3                     |
+| **Channel**             |     6                    |
+| **IP Address**          |     192.168.43.120                     |
+| **Subnet Mask**         |    	255.255.255.0                      |
+| **Default Gateway**     |     192.168.43.1                     |
 
 ---
 
