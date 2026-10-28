@@ -304,3 +304,21 @@ void app_main(void) {
 2. เหตุใดการเชื่อมต่อ Wi-Fi ความปลอดภัยแบบ WPA2-PSK จึงสามารถผ่าน Phase 2 (Authentication) และ Phase 3 (Association) จนเกิด Event `WIFI_EVENT_STA_CONNECTED` ได้สำเร็จ แม้ผู้ใช้จะป้อนรหัสผ่าน (Password) ผิด?
 3. หาก Router มีการตั้งค่า **MAC Address Filtering** (อนุญาตเฉพาะ MAC ที่ลงทะเบียน) ESP32 จะล้มเหลวในเฟสใด และจะส่ง Disconnect Reason Code ใดออกมา?
 4. สรุปความแตกต่างสำคัญระหว่างจุดสิ้นสุดของ **Phase 3 (Link-Layer Connected)** กับจุดสิ้นสุดของ **Phase 5 (IP Address Assigned)**
+
+**ตอบ คำถามท้ายการทดลอง**
+
+1. Association ID (AID) คืออะไร มีบทบาทอย่างไรใน Phase 3 และส่งคืนมาในโครงสร้างข้อมูลตัวแปรใด?
+
+Association ID (AID) คือหมายเลขที่ Access Point กำหนดให้กับอุปกรณ์เมื่อการ Association สำเร็จ ใช้ระบุและจัดการสถานีที่เชื่อมต่อกับ AP โดยค่าดังกล่าวอ่านได้จากสมาชิก aid ในโครงสร้าง wifi_event_sta_connected_t เมื่อเกิด Event WIFI_EVENT_STA_CONNECTED
+
+2. เหตุใดการเชื่อมต่อ Wi-Fi ความปลอดภัยแบบ WPA2-PSK จึงสามารถผ่าน Phase 2 (Authentication) และ Phase 3 (Association) จนเกิด Event WIFI_EVENT_STA_CONNECTED ได้สำเร็จ แม้ผู้ใช้จะป้อนรหัสผ่านผิด?
+
+เพราะการ Authentication และ Association ในระดับ IEEE 802.11 เป็นขั้นตอนสร้างความสัมพันธ์ระหว่างอุปกรณ์กับ AP ไม่ใช่การตรวจสอบรหัสผ่าน WPA2-PSK ให้เสร็จสมบูรณ์ การตรวจสอบกุญแจที่สร้างจากรหัสผ่านจะเกิดขึ้นในขั้นตอน 4-Way Handshake ดังนั้นแม้รหัสผ่านผิดก็อาจเกิด Event WIFI_EVENT_STA_CONNECTED ได้ ก่อนจะล้มเหลวในขั้นตอนถัดไป
+
+3. หาก Router มีการตั้งค่า MAC Address Filtering (อนุญาตเฉพาะ MAC ที่ลงทะเบียน) ESP32 จะล้มเหลวในเฟสใด และจะส่ง Disconnect Reason Code ใดออกมา?
+
+โดยทั่วไป ESP32 จะถูกปฏิเสธในขั้นตอน Association (Phase 3) หาก AP ตรวจสอบ MAC Address แล้วไม่อนุญาตให้เชื่อมต่อ อย่างไรก็ตาม พฤติกรรมและ Reason Code อาจแตกต่างกันตามผู้ผลิตและการตั้งค่าของ AP จึงไม่สามารถระบุรหัสเดียวได้แน่นอน โดยอาจพบ WIFI_REASON_ASSOC_FAIL หรือรหัสอื่นที่เกี่ยวข้องกับการปฏิเสธการเชื่อมต่อ ควรตรวจสอบค่าจริงจาก event->reason ใน Serial Monitor
+
+4. สรุปความแตกต่างสำคัญระหว่างจุดสิ้นสุดของ Phase 3 (Link-Layer Connected) กับจุดสิ้นสุดของ Phase 5 (IP Address Assigned)
+
+Phase 3 สิ้นสุดเมื่อ ESP32 ผ่าน Authentication และ Association กับ AP สำเร็จ โดยเกิด Event WIFI_EVENT_STA_CONNECTED ซึ่งหมายถึงเชื่อมต่อในระดับ Wi-Fi หรือ Layer 2 แล้ว แต่ยังไม่ได้ยืนยันว่ามี IP Address ส่วน Phase 5 สิ้นสุดเมื่อ ESP32 ได้รับ IP Address จาก DHCP Server และเกิด Event IP_EVENT_STA_GOT_IP ทำให้สามารถสื่อสารผ่านเครือข่าย IP เช่น เรียกใช้งาน HTTP API ได้ตามปกติ
