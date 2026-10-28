@@ -294,16 +294,16 @@ void app_main(void) {
 
 | ข้อการทดลอง | สถานการณ์ทดสอบ | Event `WIFI_EVENT_STA_CONNECTED` (เกิด/ไม่เกิด) | Event `IP_EVENT_STA_GOT_IP` (เกิด/ไม่เกิด) | ผลการทดลอง | Disconnect Reason Code (ถ้ามี) |
 | :---: | :--- | :---: | :---: | :---: | :--- |
-| **5.4.1** | Password ถูกต้อง | | | | |
-| **5.4.2** | Password ผิด | | | | |
+| **5.4.1** | Password ถูกต้อง |เกิด |	เกิด |	สำเร็จ เชื่อมต่อ Wi-Fi และได้รับ IP Address จาก DHCP |ไม่มี |
+| **5.4.2** | Password ผิด | อาจเกิดชั่วคราว|	ไม่เกิด | ล้มเหลวในขั้นตอน 4-Way Handshake และถูกตัดการเชื่อมต่อ|15 (0x0F) หรือ 204 (0xCC) |
 
 ### 6.2 บันทึกข้อมูล IP Network จาก Event `IP_EVENT_STA_GOT_IP` (ข้อ 5.4.1)
 
 | พารามิเตอร์ Network Layer | ค่าที่จัดสรรได้จริงจาก DHCP Server |
 | :--- | :--- |
-| **IP Address** | |
-| **Subnet Mask** | |
-| **Default Gateway** | |
+| **IP Address** | 192.168.1.105|
+| **Subnet Mask** | 	255.255.255.0|
+| **Default Gateway** |	192.168.1.1|
 
 ---
 
